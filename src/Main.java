@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
+import model.TipoConta;
+
 public class Main {
     private static Scanner sc = new Scanner(System.in);
     private static DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -35,8 +37,11 @@ public class Main {
     }
 
     private static void lancarConta(ContaService service) {
-        System.out.print("Tipo (PAGAR/RECEBER): ");
-        String tipo = sc.nextLine();
+    System.out.print("Tipo (PAGAR/RECEBER): ");
+    String tipoInput = sc.nextLine();
+    
+    try {
+        TipoConta tipo = TipoConta.valueOf(tipoInput.toUpperCase());
         System.out.print("Valor: ");
         double valor = Double.parseDouble(sc.nextLine());
         System.out.print("Descrição: ");
@@ -45,7 +50,11 @@ public class Main {
         LocalDate data = LocalDate.parse(sc.nextLine(), fmt);
 
         service.lancarConta(tipo, valor, desc, data);
+        System.out.println("Conta lançada com sucesso!");
+    } catch (IllegalArgumentException e) {
+        System.out.println("Tipo inválido! Use PAGAR ou RECEBER.");
     }
+}
 
     private static void marcarComoPaga(ContaService service) {
         service.listarContas();

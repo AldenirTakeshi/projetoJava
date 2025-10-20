@@ -1,6 +1,7 @@
 package service;
 
 import model.Conta;
+import model.TipoConta;
 import repository.ContaRepository;
 import java.time.LocalDate;
 
@@ -11,7 +12,7 @@ public class ContaService {
         this.repo = repo;
     }
 
-    public void lancarConta(String tipo, double valor, String descricao, LocalDate vencimento){
+    public void lancarConta(TipoConta tipo, double valor, String descricao, LocalDate vencimento){
         Conta c = new Conta(tipo, valor,descricao,vencimento);
         repo.adicionar(c);
     }
@@ -41,8 +42,8 @@ public class ContaService {
         double totalReceber = 0;
 
         for (Conta c : repo.listar()) {
-            if (c.getTipo().equals("PAGAR")) totalPagar += c.getValor();
-            else if (c.getTipo().equals("RECEBER")) totalReceber += c.getValor();
+            if (c.getTipo() == TipoConta.PAGAR) totalPagar += c.getValor();
+            else if (c.getTipo() == TipoConta.RECEBER) totalReceber += c.getValor();
         }
 
         double totalGeral = totalReceber - totalPagar;
