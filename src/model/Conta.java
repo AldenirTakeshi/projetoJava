@@ -5,21 +5,21 @@ import java.time.format.DateTimeFormatter;
 
 public class Conta {
 
-    private TipoConta tipo;
+    private String tipo;
     private double valor;
     private String descricao;
     private LocalDate vencimento;
     private boolean pago;
 
-    public Conta(TipoConta tipo, double valor, String descricao, LocalDate vencimento){
-        this.tipo = tipo;
+    public Conta(String tipo, double valor, String descricao, LocalDate vencimento){
+        this.tipo = tipo.toUpperCase();
         this.valor = valor;
         this.descricao = descricao;
         this.vencimento = vencimento;
         this.pago = false;
     }
 
-    public TipoConta getTipo() { return tipo; }
+    public String getTipo() { return tipo; }
     public double getValor() { return valor; }
     public String getDescricao() { return descricao; }
     public LocalDate getVencimento() { return vencimento; }
